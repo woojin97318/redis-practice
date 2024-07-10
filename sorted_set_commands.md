@@ -93,18 +93,37 @@ ZLEXCOUNT <key> <min_score> <max_score>
 
 - 정렬된 집합에서 사전 순서 범위 내의 멤버 수를 반환
 
-### 11. 
+1. 정렬된 집합 생성 및 변수 추가
+  - 모든 멤버의 점수를 0으로 설정하여 사전 순서 비교가 이루어지도록 함
 
 ```
-
+ZADD myzset 0 "apple"
+ZADD myzset 0 "banana"
+ZADD myzset 0 "cherry"
+ZADD myzset 0 "date"
+ZADD myzset 0 "elderberry"
 ```
 
-- d
-
-### 12.  
+2. 사전 순서 범위 내의 멤버 수 조회
 
 ```
-
+> ZLEXCOUNT myzset [b [d
+> 3
 ```
 
-- d
+3. 범위 예시
+
+- `ZLEXCOUNT myzset [b [d` : "banana," "cherry", "date"를 포함
+- `ZLEXCOUNT myzset (b (d` : banana와 "date를 제외하고 "cherry"만 포함
+- `ZLEXCOUNT myzset [b (d` : banana와 "cherry"를 포함하고 "date"를 제외
+- `ZLEXCOUNT myzset (b [d` : banana를 제외하고 "cherry"와 "date"를 포함
+
+### 11. ZREMRANGEBYRANK, ZREMRANGEBYSCORE, ZREMRANGEBYLEX
+
+```
+ZREMRANGEBYRANK <key> <start> <stop>
+ZREMRANGEBYSCORE <key> <min> <max>
+ZREMRANGEBYLEX <key> <min> <max>
+```
+
+- 정렬된 집합에서 순위, 점수, 사전 순서에 따라 멤버를 범위로 제거
