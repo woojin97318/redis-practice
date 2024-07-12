@@ -1,4 +1,4 @@
-## 기본 관리 명령어
+## 시스템 관리 명령어
 
 ### 1. FLUSHALL
 
@@ -97,3 +97,99 @@ AUTH <password>
 
 - Redis 서버에 인증한다.
 - Redis 설정에서 `requirepass` 옵션이 설정되어 있는 경우 사용한다.
+
+---
+
+## 키 조작 명령어
+
+### 1. DEL
+
+```
+DEL <key1> <key2> ...
+```
+
+- 하나 이상의 키를 삭제
+
+### 2. EXISTS
+
+```
+EXISTS <key>
+```
+
+- 특정 키가 존재하는지 확인
+- 존재하면 `1`, 존재하지 않으면 `0`을 반환
+
+### 3. EXPIRE, TTL, PERSIST
+
+```
+EXPRIE <key> <seconds>
+TTL <key>
+PERSIST <key>
+```
+
+- `EXPIRE` : 특정 키의 만료 시간을 설정
+- `TTL` : 특정 키의 남은 만료 시간을 초 단위로 반환
+- `PERSIST` : 특정 키의 만료 시간을 제거하여 영구적으로 만듬
+
+### 4. RENAME, RENAMENX
+
+```
+RENAME <key> <newKey>
+RENAMENX <key> <newKey>
+```
+
+- `RENAME` : 키의 이름을 변경
+- `RENAMENX` : 새로운 키가 존재하는지 않을 때만 키의 이름을 변경
+
+### 5. TYPE
+
+```
+TYPE <key>
+```
+
+- 특정 키의 데이터 타입을 반환
+- string, hash, list, set, zset(sorted_set) 등
+
+---
+
+## 데이터베이스 명령어
+
+### 1. SELECT
+
+```
+SELECT <index>
+```
+
+- 특정 데이터베이스를 선택
+- 기본 데이터베이스는 `0`이다.
+
+### 2. KEYS
+
+```
+KEYS <pattern>
+```
+
+- 패턴에 매칭되는 모든 키를 반환
+- 예시: `KEYS *`, `KEYS user:*`
+
+---
+
+## 기타 유용한 명령어
+
+### 1. EVAL
+
+```
+EVAL script numkeys key1 key2 ... arg1 arg2 ...
+```
+
+- Lua 스크립트를 실행
+- 예시: `EVAL "return redis.call('set', KEYS[1], ARGV[1])" 1 mykey myvalue`
+
+### 2. PING
+
+```
+PING
+```
+
+- Redis 서버가 응답하는지 확인
+- `PONG`를 반환한다.
