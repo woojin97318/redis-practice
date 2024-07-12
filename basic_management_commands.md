@@ -59,12 +59,41 @@ BGSAVE
 LASTSAVE
 ```
 
-- 마지막으로 스냅샷을 생성한 시간을 timestamp 형식으로 반환
+- 마지막으로 성공한 스냅샷의 timestamp를 반환
 
-### 8. 
-
-```
+### 8. SHUTDOWN
 
 ```
+SHUTDOWN [NOSAVE|SAVE]
+```
 
-- 
+- Redis 서버 종료
+- `NOSAVE` : 종료 전에 데이터를 저장하지 않음
+- `SAVE` : 종료 전에 데이터를 저장
+
+### 9. CLIENT LIST, CLIENT KILL
+
+```
+CLIENT LIST
+CLIENT KILL <ip:port>
+```
+
+- `CLIENT LIST` : 현재 연결된 모든 클라이언트 정보를 반환
+- `CLIENT KILL` : 특정 클라이언트를 종료
+
+### 10. MONITOR
+
+```
+MONITER
+```
+
+- 모든 Redis 명령어를 실시간으로 모니터링한다.
+
+### 11. AUTH
+
+```
+AUTH <password>
+```
+
+- Redis 서버에 인증한다.
+- Redis 설정에서 `requirepass` 옵션이 설정되어 있는 경우 사용한다.
